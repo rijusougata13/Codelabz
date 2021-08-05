@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Alert from "@material-ui/lab/Alert";
-import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import { Alert, Button, Form, Input, Typography, Row, Col } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import { confirmPasswordReset } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
@@ -52,7 +47,7 @@ const PasswordResetForm = ({ actionCode }) => {
         <Alert
           message={""}
           description={error}
-          severity="error"
+          type="error"
           closable
           className="login-error mb-16"
         />
@@ -63,21 +58,21 @@ const PasswordResetForm = ({ actionCode }) => {
           <Alert
             message={""}
             description={"Successfully changed your password"}
-            severity="success"
+            type="success"
             closable
             className="mb-16"
           />
-          <Grid justify="center" align="center" className="mt-24">
-            <Grid sm={24} className="center">
+          <Row justify="center" align="center" className="mt-24">
+            <Col sm={24} className="center">
               <Link to={"/login"}>Sign in</Link>
-            </Grid>
-          </Grid>
+            </Col>
+          </Row>
         </>
       )}
       {!success && (
         <>
-          <form onFinish={onSubmit}>
-            <FormControl
+          <Form onFinish={onSubmit}>
+            <Form.Item
               name="password"
               rules={[
                 {
@@ -91,8 +86,8 @@ const PasswordResetForm = ({ actionCode }) => {
                 prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
                 placeholder="Password"
               />
-            </FormControl>
-            <FormControl
+            </Form.Item>
+            <Form.Item
               name="confirm"
               dependencies={["password"]}
               hasFeedback
@@ -118,18 +113,18 @@ const PasswordResetForm = ({ actionCode }) => {
                 required
                 placeholder="Confirm password"
               />
-            </FormControl>
-            <FormControl>
+            </Form.Item>
+            <Form.Item>
               <Button type="primary" htmlType="submit" block loading={loading}>
                 {loading ? "Changing your password..." : "Change password"}
               </Button>
-            </FormControl>
-          </form>
-          <Grid justify="center" align="center" className="mt-24">
-            <Grid sm={24} className="center">
+            </Form.Item>
+          </Form>
+          <Row justify="center" align="center" className="mt-24">
+            <Col sm={24} className="center">
               Back to <Link to={"/login"}>CodeLabz</Link>
-            </Grid>
-          </Grid>
+            </Col>
+          </Row>
         </>
       )}
     </>

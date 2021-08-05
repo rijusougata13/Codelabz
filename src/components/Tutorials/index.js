@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Grid from "@material-ui/core/Grid";
+import { Layout, Row, Col } from "antd";
 import { useMediaQuery } from "react-responsive";
 import StepsPanel from "./subComps/StepsPanel";
 import ReactMarkdown from "react-markdown";
@@ -22,6 +22,7 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
 
+const { Content, Sider } = Layout;
 
 const ViewTutorial = () => {
   const firebase = useFirebase();
@@ -30,7 +31,7 @@ const ViewTutorial = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [stepPanelVisible, setStepPanelVisible] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
-  const [mode, setMode] = useState("view");
+  const [mode, setMode] = useState("view"); // modes = edit, view
   const [allowEdit, setAllowEdit] = useState(true);
   const [imageDrawerVisible, setImageDrawerVisible] = useState(false);
   const [addNewStepModalVisible, setAddNewStepModalVisible] = useState(false);
@@ -112,10 +113,10 @@ const ViewTutorial = () => {
   if (tutorialData) {
     window.scrollTo(0, 0);
     return (
-      <Grid className="row-footer-below">
+      <Layout className="row-footer-below">
         {allowEdit && (
-          <Grid>
-            <Grid xs={24} sm={24} md={24}>
+          <Row>
+            <Col xs={24} sm={24} md={24}>
               <EditControls
                 stepPanelVisible={stepPanelVisible}
                 isDesktop={isDesktop}
@@ -132,12 +133,12 @@ const ViewTutorial = () => {
                 currentStep={currentStep}
                 step_length={stepsData.length}
               />
-            </Grid>
-          </Grid>
+            </Col>
+          </Row>
         )}
 
-        <Grid>
-          <Grid xs={24} sm={24} md={24}>
+        <Row>
+          <Col xs={24} sm={24} md={24}>
             <TutorialTitle
               stepPanelVisible={stepPanelVisible}
               isDesktop={isDesktop}
@@ -145,13 +146,14 @@ const ViewTutorial = () => {
               tutorialData={tutorialData}
               timeRemaining={timeRemaining}
             />
-          </Grid>
-        </Grid>
-        <Grid style={{ display: "flex", flexDirection: "row" }}>
-          <Grid
-            width={stepPanelVisible ? (isDesktop ? "55%" : "100%") : "0"}
+          </Col>
+        </Row>
+        <Layout>
+          <Sider
+            width={stepPanelVisible ? (isDesktop ? "25%" : "100%") : "0"}
+            className={stepPanelVisible ? "col-pad-24-s scrollfix " : ""}
             theme="light"
-            style={{ backgroundColor: "white", padding: "2rem" }}
+            style={{ backgroundColor: "white" }}
           >
             <StepsPanel
               currentStep={currentStep}
@@ -160,11 +162,11 @@ const ViewTutorial = () => {
               onClick={() => setStepPanelVisible(false)}
               hideButton={isDesktop}
             />
-          </Grid>
+          </Sider>
 
-          <Grid style={{ width: "90%", background: "#f0f0f0" }}>
-            <Grid className="tutorial-content" justify="center" container>
-              <Grid
+          <Content style={{ backgroundColor: "#f0f0f0" }}>
+            <Row className="tutorial-content" justify="center">
+              <Col
                 xs={24}
                 sm={24}
                 md={20}
@@ -203,7 +205,7 @@ const ViewTutorial = () => {
                     )}
                   </>
                 )}
-              </Grid>
+              </Col>
               {imageDrawerVisible && (
                 <ImageDrawer
                   visible={imageDrawerVisible}
@@ -222,20 +224,20 @@ const ViewTutorial = () => {
                 steps_length={stepsData.length}
                 owner={tutorialData.owner}
               />
-            </Grid>
-            <Grid>
-              <Grid xs={24} sm={24} md={24} className="col-pad-24-s">
+            </Row>
+            <Row>
+              <Col xs={24} sm={24} md={24} className="col-pad-24-s">
                 <ControlButtons
                   currentStep={currentStep}
                   setCurrentStep={setCurrentStep}
                   stepsData={stepsData}
                   hide={!isDesktop && stepPanelVisible}
                 />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+              </Col>
+            </Row>
+          </Content>
+        </Layout>
+      </Layout>
     );
   } else {
     return <Spinner half />;

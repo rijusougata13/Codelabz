@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
+import { Button, Form, Modal, Space, message } from "antd";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { removeStep } from "../../../store/actions";
-import Snackbar from "@material-ui/core/Snackbar";
-import Typography from "@material-ui/core/Typography";
 
 const RemoveStepModal = ({
   owner,
@@ -26,15 +23,7 @@ const RemoveStepModal = ({
 
   const handleOnOk = () => {
     let key = Math.random();
-    <Snackbar
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      open={true}
-      autoHideDuration={6000}
-      message="Updating...."
-    />;
+    message.loading({ content: "Removing step...", key, duration: 10 });
     if (step_length > 1) {
       removeStep(
         owner,
@@ -43,15 +32,7 @@ const RemoveStepModal = ({
         currentStep
       )(firebase, firestore, dispatch).then(() => {
         setVisible(false);
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          open={true}
-          autoHideDuration={6000}
-          message="removed...."
-        />;
+        message.success({ content: "Step removed!", key, duration: 2 });
       });
     }
   };
@@ -59,35 +40,27 @@ const RemoveStepModal = ({
 
   return (
     <Modal
-      open={visible}
-      onClose={handleOnCancel}
-      aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description"
-      style={{
-        border: "2px solid #000",
-        background: "whitesmoke",
-        boxShadow: "2rem gray",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "10rem",
-        width: "20rem",
-        position: "absolute",
-        top: "40%",
-        left: "40%",
-      }}
+      title={`Do you really want to remove this step?`}
+      visible={visible}
+      onCancel={handleOnCancel}
+      onOk={handleOnCancel}
+      footer={false}
+      destroyOnClose={true}
+      maskClosable={true}
     >
-      <div>
-        <Typography>This action is can not be undone!</Typography>
-        <form onSubmit={handleOnOk}>
-          <Button key="back" onClick={handleOnCancel}>
-            <Typography>Cancel</Typography>
-          </Button>
-          <Button key="submit" type="primary" htmlType="submit">
-            <Typography> Remove</Typography>
-          </Button>
-        </form>
-      </div>
+      This action is can not be undone!
+      <Form onFinish={handleOnOk}>
+        <Form.Item className="mb-0 mt-24">
+          <Space style={{ float: "right" }}>
+            <Button key="back" onClick={handleOnCancel}>
+              Cancel
+            </Button>
+            <Button key="submit" type="primary" htmlType="submit">
+              Remove
+            </Button>
+          </Space>
+        </Form.Item>
+      </Form>
     </Modal>
   );
 };

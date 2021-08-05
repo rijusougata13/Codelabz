@@ -65,6 +65,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
       closeModal();
     }
   }, [closeModal, loading, error]);
+
   const [formValue, setformValue] = useState({
     org_name: currentOrgData.org_name,
     org_website: currentOrgData.org_website,

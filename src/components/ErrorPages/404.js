@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Children } from "react";
 
-const NotFound = ({ background = "white", textColor = "black" }) => {
+const NotFound = () => {
   const useStyles = makeStyles((theme) => ({
     wrapper: {
       height: "65vh",
@@ -69,11 +69,7 @@ const NotFound = ({ background = "white", textColor = "black" }) => {
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      className={`row-fullheight ${classes.wrapper}`}
-      style={{ background: background }}
-    >
+    <Grid container className={`row-fullheight ${classes.wrapper}`}>
       <Grid
         item
         style={{ padding: "0", marginTop: "-5rem", marginLeft: "2rem" }}
@@ -84,12 +80,10 @@ const NotFound = ({ background = "white", textColor = "black" }) => {
         item
         style={{ marginTop: "2rem", display: "flex", alignItems: "center" }}
       >
-        <Typography variant="h2" style={{ color: textColor }}>
-          Oops!
-        </Typography>
+        <Typography variant="h2">Oops!</Typography>
       </Grid>
       <Grid item>
-        <ul className={classes.oops} style={{ color: textColor }}>
+        <ul className={classes.oops}>
           <li>P</li>
           <li>A</li>
           <li>G</li>
@@ -104,7 +98,7 @@ const NotFound = ({ background = "white", textColor = "black" }) => {
         </ul>
       </Grid>
       <Grid item style={{ marginTop: "0" }}>
-        <Typography variant="body" style={{ color: textColor }}>
+        <Typography variant="body">
           We can't seem to find the page you are looking for
         </Typography>
       </Grid>

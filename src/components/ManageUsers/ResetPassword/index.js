@@ -5,16 +5,13 @@ import {
   clearRecoverPasswordError,
   verifyPasswordResetCode,
 } from "../../../store/actions";
-import Alert from "@material-ui/lab/Alert";
-import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import { Alert, Card, Col, Row, Typography } from "antd";
 import { Link } from "react-router-dom";
 import PasswordResetForm from "./PasswordResetForm";
 
 const { Title } = Typography;
 
-const ResetPassword = ({ queryParams = "test" }) => {
+const ResetPassword = ({ queryParams }) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const { oobCode: actionCode } = queryParams;
@@ -53,8 +50,8 @@ const ResetPassword = ({ queryParams = "test" }) => {
 
   return (
     <>
-      <Grid justify="center">
-        <Grid md={12} lg={10}>
+      <Row justify="center">
+        <Col xs={24} sm={24} md={12} lg={10}>
           <Card bordered={false}>
             {loading && (
               <Title
@@ -69,23 +66,23 @@ const ResetPassword = ({ queryParams = "test" }) => {
                 <Alert
                   message={"Password reset link verification failed"}
                   description={error}
-                  severity="error"
+                  type="error"
                   closable
                   className="mb-16"
                   showIcon
                 />
-                <Grid justify="center" align="center" className="mt-24">
-                  <Grid className="center">
+                <Row justify="center" align="center" className="mt-24">
+                  <Col sm={24} className="center">
                     Back to <Link to={"/login"}>CodeLabz</Link>
-                  </Grid>
-                </Grid>
+                  </Col>
+                </Row>
               </>
             )}
-            <PasswordResetForm />
+
             {success && <PasswordResetForm actionCode={actionCode} />}
           </Card>
-        </Grid>
-      </Grid>
+        </Col>
+      </Row>
     </>
   );
 };

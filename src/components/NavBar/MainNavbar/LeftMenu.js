@@ -29,6 +29,9 @@ const LeftMenu = ({ mode }) => {
       selectedkeys={location}
       className={classes.menu}
     >
+      <MenuItem key="/codefeed">
+        <NavLink to="/">CodeFeed</NavLink>
+      </MenuItem>
       <MenuItem key="/tutorials">
         <NavLink to="/tutorials">Tutorials</NavLink>
       </MenuItem>
@@ -42,6 +45,9 @@ const LeftMenu = ({ mode }) => {
           <NavLink to="/organization">Organizations</NavLink>
         </MenuItem>
       )}
+      <MenuItem key="/homePage">
+        <NavLink to="/homePage">Home Page</NavLink>
+      </MenuItem>
     </Grid>
   );
 };

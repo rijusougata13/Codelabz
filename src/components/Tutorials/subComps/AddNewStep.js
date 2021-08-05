@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from '@material-ui/core/Modal';
-import Input from '@material-ui/core/Input';
-import Grid from '@material-ui/core/Grid';
-import Alert from '@material-ui/lab/Alert';
-import Button from '@material-ui/core/Button';
-import TextField from "@material-ui/core/TextField";
+import { Alert, Button, Form, Input, InputNumber, Modal, Space } from "antd";
 import {
   addNewStepNameValidation,
   addNewStepTimeValidation,
@@ -30,8 +25,6 @@ const AddNewStepModal = ({
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [title,setTitle]=useState("");
-  const [time,setTime]=useState(0);
 
   useEffect(() => {
     clearCreateTutorials()(dispatch);
@@ -74,12 +67,9 @@ const AddNewStepModal = ({
     }
   }, [loading, error, dispatch]);
 
+  const [form] = Form.useForm();
 
-  const onSubmit = () => {
-    const formData={
-     title,
-     time
-   }
+  const onSubmit = (formData) => {
     const set_data = {
       ...formData,
       id: `${tutorial_id}_${new Date().getTime()}`,
@@ -90,26 +80,20 @@ const AddNewStepModal = ({
   };
 
   const handleCancel = () => {
-    
+    form.resetFields();
     setVisible(false);
   };
 
   return (
     <Modal
       title={`Add New Step`}
-      open={visible}
-      onClose={() => viewCallback()}
+      visible={visible}
+      onCancel={() => viewCallback()}
       onOk={() => viewCallback()}
       footer={false}
       destroyOnClose={true}
       maskClosable={false}
-       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
     >
-      <Grid style={{background:"white",padding:"2rem"}}>
       {error && (
         <Alert
           message={""}
@@ -119,33 +103,37 @@ const AddNewStepModal = ({
           className="mb-24"
         />
       )}
-      <form onSubmit={onSubmit} >
+      <Form form={form} onFinish={onSubmit}>
+        <Form.Item name={"title"} rules={addNewStepNameValidation}>
           <Input
             prefix={
               <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
             }
-            onChange={e=>setTitle(e.target.value)}
             placeholder="Title of the Step"
             autoComplete="title"
-            style={{marginBottom:"2rem"}}
           />
-        <TextField type="number" onChange={e=>setTime(e.target.value)} placeholder="Time (minutes)" style={{ width: "100%" }} />
-            <Button  style={{marginTop:"2rem"}} variant="contained" color="secondary" key="back" onClick={handleCancel}>
+        </Form.Item>
+
+        <Form.Item name={"time"} rules={addNewStepTimeValidation}>
+          <InputNumber placeholder="Time (minutes)" style={{ width: "100%" }} />
+        </Form.Item>
+
+        <Form.Item className="mb-0">
+          <Space style={{ float: "right" }}>
+            <Button key="back" onClick={handleCancel}>
               Cancel
             </Button>
             <Button
-            style={{marginTop:"2rem"}}
               key="submit"
               type="primary"
               htmlType="submit"
-              variant="contained"
-              color="primary"
               loading={loading}
             >
               {loading ? "Creating..." : "Create"}
             </Button>
-      </form>
-      </Grid>
+          </Space>
+        </Form.Item>
+      </Form>
     </Modal>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import { Empty, Button, Col } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import NewTutorial from "../components/Tutorials/NewTutorial";
 import EmptySVG from "../assets/images/empty.svg";
@@ -12,23 +11,25 @@ const EmptyTutorials = ({ org, orgHandle }) => {
     setVisibleModal((prev) => !prev);
   };
   return (
-    <Grid xs={24}>
-      <Grid
-        style={{ display: "flex", flexFlow: "column", background: "#f2f2f2" }}
+    <Col xs={24}>
+      <Empty
+        image={EmptySVG}
+        imageStyle={{
+          height: 60,
+        }}
         description={<span>{org} has no CodeLabz yet</span>}
       >
-        <img src={EmptySVG} alt="empty" />
         <Button onClick={() => setVisibleModal(true)} type="primary">
           <PlusOutlined /> Add New CodeLabz
         </Button>
-      </Grid>
+      </Empty>
       <NewTutorial
         viewModal={visibleModal}
         onSidebarClick={(e) => closeModal(e)}
         viewCallback={() => setVisibleModal(false)}
         active={orgHandle}
       />
-    </Grid>
+    </Col>
   );
 };
 

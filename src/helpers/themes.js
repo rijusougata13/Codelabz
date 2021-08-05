@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
 export const basicTheme = createMuiTheme({
   shadows: ["none"],
