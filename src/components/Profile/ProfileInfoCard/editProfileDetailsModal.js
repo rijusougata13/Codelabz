@@ -213,7 +213,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const onChangeGithub = (github) => setGithub(github);
 
   return (
-    <Grid id="editModalBox">
+    <>
       {error && (
         <Grid container>
           <Grid xs={12} className="col-pad-24 pr-12 pb-0">
@@ -233,7 +233,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           variant="outlined"
           placeholder="Display Name"
           value={name}
-          data-testId="editProfileName"
           onChange={(event) => onChangeName(event.target.value)}
           helperText={nameValidateError ? nameValidateErrorMessage : null}
           fullWidth
@@ -270,7 +269,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           variant="outlined"
           placeholder="Website"
           value={website}
-          data-testId="editProfileWebsite"
           onChange={(event) => onChangeOrgWebsite(event.target.value)}
           helperText={websiteValidateError ? websiteValidateErrorMessage : null}
           fullWidth
@@ -294,7 +292,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           multiline
           variant="outlined"
           placeholder="Description"
-          data-testId="editProfileDescription"
           value={description}
           onChange={(event) => onChangeDescription(event.target.value)}
           helperText={
@@ -321,7 +318,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           variant="outlined"
           placeholder="username"
           value={facebook}
-          data-testId="editProfileFacebook"
           onChange={(event) => onChangeFacebook(event.target.value)}
           helperText={
             facebookValidateError ? facebookValidateErrorMessage : null
@@ -350,7 +346,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           variant="outlined"
           value={twitter}
           placeholder="username"
-          data-testId="editProfileTwitter"
           onChange={(event) => onChangeTwitter(event.target.value)}
           helperText={twitterValidateError ? twitterValidateErrorMessage : null}
           fullWidth
@@ -376,7 +371,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           label="LinkedIn"
           variant="outlined"
           value={linkedin}
-          data-testId="editProfileLinkedin"
           placeholder="username"
           onChange={(event) => onChangeLinkedin(event.target.value)}
           helperText={
@@ -409,7 +403,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           onChange={(event) => onChangeGithub(event.target.value)}
           helperText={githubValidateError ? githubValidateErrorMessage : null}
           fullWidth
-          data-testId="editProfileGithub"
           autoComplete="handle"
           required
           style={{ marginBottom: "15px" }}
@@ -439,7 +432,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
               style={{
                 backgroundColor: "SeaGreen",
               }}
-              data-testId="editProfileSave"
               onClick={onSubmit}
             >
               {loading ? "Saving..." : "Save"}
@@ -463,7 +455,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           </Box>
         </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 

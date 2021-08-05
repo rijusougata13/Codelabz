@@ -1,22 +1,22 @@
 import React from "react";
-import Select from "@material-ui/core/Select";
+import { Form, Select } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
 import countryList from "./countryList";
-import MenuItem from "@material-ui/core/MenuItem";
+const { Option } = Select;
 
 const CountryDropdown = (props) => {
   const children = [];
 
   for (let i = 0; i < countryList.length; i++) {
     children.push(
-      <MenuItem key={countryList[i].code} value={countryList[i].name}>
+      <Option key={countryList[i].code} value={countryList[i].name}>
         {countryList[i].name}
-      </MenuItem>
+      </Option>
     );
   }
 
   return (
-    <form
+    <Form.Item
       name="org_country"
       rules={[
         {
@@ -38,7 +38,7 @@ const CountryDropdown = (props) => {
       >
         {children}
       </Select>
-    </form>
+    </Form.Item>
   );
 };
 

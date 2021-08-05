@@ -12,14 +12,14 @@ import List from "@material-ui/core/List";
 import { userList } from "./userList";
 import useStyles from "./styles";
 
-function HomePage({ background = "white", textColor = "black" }) {
+function HomePage() {
   const classes = useStyles();
   const [value, setValue] = useState(2);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
-    <Card className={classes.wrapper} style={{ background: background }}>
+    <Card className={classes.wrapper}>
       <div className={classes.sideBody}>
         <Grid
           container
@@ -36,7 +36,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             <Typography
               variant="h6"
               gutterBottom
-              style={{ marginBottom: "1rem", color: textColor }}
+              style={{ marginBottom: "1rem" }}
             >
               Popular Tags
             </Typography>
@@ -79,7 +79,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             <Typography
               variant="h6"
               gutterBottom
-              style={{ marginBottom: "1rem", color: textColor }}
+              style={{ marginBottom: "1rem" }}
             >
               Popular Events
             </Typography>
@@ -113,11 +113,7 @@ function HomePage({ background = "white", textColor = "black" }) {
         <Grid container className={classes.sort}>
           <Typography
             variant="h6"
-            style={{
-              padding: ".5rem 1rem",
-              fontWeight: "bold",
-              color: textColor,
-            }}
+            style={{ padding: ".5rem 1rem", fontWeight: "bold" }}
           >
             Posts
           </Typography>
@@ -159,7 +155,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             <Typography
               variant="h6"
               gutterBottom
-              style={{ marginBottom: "1rem", color: textColor }}
+              style={{ marginBottom: "1rem" }}
             >
               Upcoming Events
             </Typography>
@@ -201,7 +197,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           <Typography
             variant="h6"
             gutterBottom
-            style={{ marginBottom: "1rem", color: textColor }}
+            style={{ marginBottom: "1rem" }}
           >
             Discussion
           </Typography>
@@ -213,7 +209,6 @@ function HomePage({ background = "white", textColor = "black" }) {
                 width: "100%",
                 overflow: "auto",
                 maxHeight: "25rem",
-                color: textColor,
               }}
             >
               <ListItem button>

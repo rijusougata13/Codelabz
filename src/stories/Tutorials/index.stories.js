@@ -1,18 +1,15 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import ProviderWrapper from "../../helpers/providerWrapper";
-import ViewTutorial from "../../components/Tutorials/index";
+import ViewTutorial from "../../components/Tutorials";
+
 export default {
-  title: "Tutorials/Tutorial",
+  title: "Tutorial",
   component: ViewTutorial,
 };
 
-const Template = (args) => (
+export const tutorial = () => (
   <ProviderWrapper>
-    <MemoryRouter>
-      <ViewTutorial {...args} />
-    </MemoryRouter>
+    <MemoryRouter>Under Construction</MemoryRouter>
   </ProviderWrapper>
 );
-
-export const Default = Template.bind({});
